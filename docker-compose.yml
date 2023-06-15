@@ -1,0 +1,20 @@
+version: '3.7'
+services:
+  server:
+    build: .
+    container_name: binance-udf-feed-server
+    restart: always
+    ports:
+      - "8080:80"
+      - "9200:9200"
+    depends_on:
+      - redis
+  redis:
+    image: redis:6.2-alpine
+    restart: always
+    command: redis-server --save 20 1 --loglevel warning
+    volumes: 
+      - cache:/data
+volumes:
+  cache:
+    driver: local

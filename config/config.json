@@ -7,8 +7,9 @@
       "maxIdleTime": 10000
     },
     "redis": {
-      "host": "127.0.0.1",
-      "port": 6379
+      "host": "api.krv.ee",
+      "port": 6379,
+      "password": "yae3eew9aeYooh9aigeseelae8eiPho9"
     }
   },
   "test": {

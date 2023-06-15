@@ -25,7 +25,8 @@ router.get('/history', [
 
     return res.udf.history(
         req.query.symbol,
-        req.query.resolution
+        req.query.resolution,
+        req.query.countback
     ).then((result) => {
         res.send(result)
     }).catch(function (err) {
@@ -39,9 +40,10 @@ router.get('/history', [
  * @apiVersion 1.0.0
  * @apiGroup Api
  */
-router.get('/config', (req, res, next) => {
-    const time = Math.floor(Date.now() / 1000)  // In seconds
-    res.set('Content-Type', 'text/plain').send(time.toString())
+router.get('/config', async (req, res, next) => {
+    console.log("getting config")
+    const config = await res.udf.config();
+    return res.json(config);
 })
 
 

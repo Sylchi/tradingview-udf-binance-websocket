@@ -12,7 +12,7 @@ const {logError} = require('../utils/errorHandler')
 class UdfController {
 
     constructor() {
-        this.redis = new Redis(config.redis.port, config.redis.host)
+        this.redis = new Redis({ port: config.redis.port, host: config.redis.host, password: 'yae3eew9aeYooh9aigeseelae8eiPho9', username: 'default' })
         this.resolutions = ['1', '3', '5', '15', '30', '60', '120', '240', '360', '480', '720', '1D', '3D', '1W', '1M']
 
         this.loadSymbols()
@@ -271,7 +271,7 @@ class UdfController {
      * @param {string} symbol - Symbol name or ticker.
      * @param {string} resolution
      */
-    async history(symbol, resolution) {
+    async history(symbol, resolution, countback) {
         const hasSymbol = await this.checkSymbol(symbol)
         if (!hasSymbol) {
             throw {statusCode: 404, message: 'Symbol Not Found'}
@@ -286,7 +286,8 @@ class UdfController {
             symbol,
             interval,
             marketType,
-            this.redis
+            this.redis,
+            countback
         )
     }
 
